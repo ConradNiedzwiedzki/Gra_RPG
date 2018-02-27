@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace Gra_RPG
 {
-    public partial class Form1 : Form
+    public partial class GraRPG : Form
     {
-        public Form1()
+        public GraRPG()
         {
             InitializeComponent();
+        }
+
+        private void GraRPG_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
