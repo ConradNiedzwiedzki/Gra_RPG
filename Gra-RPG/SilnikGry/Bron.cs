@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace SilnikGry
 {
-    class Bron : Przedmiot
+    public class Bron : Przedmiot
     {
         public int MinimalneObrazenia { get; set; }
         public int MaksymalneObrazenia { get; set; }
+
+        public Bron(int id, string nazwa, string nazwaMnoga, int minimalneObrazenia, int maksymalneObrazenia) : base(id, nazwa, nazwaMnoga)
+        {
+            MinimalneObrazenia = minimalneObrazenia;
+            MaksymalneObrazenia = maksymalneObrazenia;
+        }
     }
 }

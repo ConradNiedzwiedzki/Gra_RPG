@@ -10,5 +10,11 @@ namespace SilnikGry
     {
         public int BiezacePunktyZdrowia { get; set; }
         public int MaksymalnePunktyZdrowia { get; set; }
+
+        public PostacGry(int biezacePunktyZdrowia, int maksymalnePunktyZdrowia)
+        {
+            BiezacePunktyZdrowia = biezacePunktyZdrowia;
+            MaksymalnePunktyZdrowia = maksymalnePunktyZdrowia;
+        }
     }
 }

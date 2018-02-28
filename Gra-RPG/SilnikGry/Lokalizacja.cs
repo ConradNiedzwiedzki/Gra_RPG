@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace SilnikGry
 {
-    class Lokalizacja
+    public class Lokalizacja
     {
         public int ID { get; set; }
         public string Nazwa { get; set; }
         public string Opis { get; set; }
+
+        public Lokalizacja(int id, string nazwa, string opis)
+        {
+            ID = id;
+            Nazwa = nazwa;
+            Opis = opis;
+        }
     }
 }

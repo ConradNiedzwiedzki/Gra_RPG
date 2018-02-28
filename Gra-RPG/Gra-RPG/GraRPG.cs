@@ -19,7 +19,9 @@ namespace Gra_RPG
         {
             InitializeComponent();
 
-            _gracz = new Gracz();
+            Lokalizacja lokalizacja = new Lokalizacja(1, "Dom", "To jest Twój dom.");
+
+            _gracz = new Gracz(10, 10, 20, 0, 1);
 
             _gracz.BiezacePunktyZdrowia = 10;
             _gracz.MaksymalnePunktyZdrowia = 10;
