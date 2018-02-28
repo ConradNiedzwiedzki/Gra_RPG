@@ -51,6 +51,7 @@
     <Compile Include="PrzedmiotInwentarza.cs" />
     <Compile Include="PrzedmiotLupu.cs" />
     <Compile Include="PrzedmiotWykonanegoZadania.cs" />
+    <Compile Include="Swiat.cs" />
     <Compile Include="Zadanie.cs" />
     <Compile Include="ZadanieGracza.cs" />
   </ItemGroup>

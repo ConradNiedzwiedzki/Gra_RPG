@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SilnikGry
 {
-    public class PrzedmiotWykonanegoZadania
+    public class PrzedmiotyDoWykonaniaZadania
     {
         public Przedmiot Szczegoly { get; set; }
         public int Ilosc { get; set; }
 
-        public PrzedmiotWykonanegoZadania(Przedmiot szczegoly, int ilosc)
+        public PrzedmiotyDoWykonaniaZadania(Przedmiot szczegoly, int ilosc)
         {
             Szczegoly = szczegoly;
             Ilosc = ilosc;
