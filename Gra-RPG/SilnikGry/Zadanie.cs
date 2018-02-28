@@ -13,6 +13,8 @@ namespace SilnikGry
         public string Opis { get; set; }
         public int PunktyDoswiadczeniaDoZdobycia { get; set; }
         public int ZlotoDoZdobycia { get; set; }
+        public Przedmiot PrzedmiotNagroda { get; set; }
+        public List<PrzedmiotWykonanegoZadania> PrzedmiotyWykonanegoZadania { get; set; }
 
         public Zadanie(int id, string nazwa, string opis, int punktyDoswiadczeniaDoZdobycia, int zlotoDoZdobycia)
         {
@@ -21,6 +23,7 @@ namespace SilnikGry
             Opis = opis;
             PunktyDoswiadczeniaDoZdobycia = punktyDoswiadczeniaDoZdobycia;
             ZlotoDoZdobycia = zlotoDoZdobycia;
+            PrzedmiotyWykonanegoZadania = new List<PrzedmiotWykonanegoZadania>();
         }
     }
 }
