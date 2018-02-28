@@ -23,13 +23,13 @@ namespace Gra_RPG
 
             _gracz.BiezacePunktyZdrowia = 10;
             _gracz.MaksymalnePunktyZdrowia = 10;
-            _gracz.Złoto = 20;
-            _gracz.PunktyDoświadczenia = 0;
+            _gracz.Zloto = 20;
+            _gracz.PunktyDoswiadczenia = 0;
             _gracz.Poziom = 1;
 
             lblPunktyZdrowia.Text = _gracz.BiezacePunktyZdrowia.ToString();
-            lblZłoto.Text = _gracz.Złoto.ToString();
-            lblDoświadczenie.Text = _gracz.PunktyDoświadczenia.ToString();
+            lblZłoto.Text = _gracz.Zloto.ToString();
+            lblDoświadczenie.Text = _gracz.PunktyDoswiadczenia.ToString();
             lblPoziom.Text = _gracz.Poziom.ToString();
 
         }

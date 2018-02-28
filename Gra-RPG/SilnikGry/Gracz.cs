@@ -10,8 +10,8 @@ namespace SilnikGry
     {
         public int BiezacePunktyZdrowia { get; set; }
         public int MaksymalnePunktyZdrowia { get; set; }
-        public int Złoto { get; set; }
-        public int PunktyDoświadczenia { get; set; }
+        public int Zloto { get; set; }
+        public int PunktyDoswiadczenia { get; set; }
         public int Poziom { get; set; }
     }
 }
