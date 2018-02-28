@@ -32,11 +32,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.lblZdrowie = new System.Windows.Forms.Label();
+            this.lblPunktyZdrowia = new System.Windows.Forms.Label();
             this.lblZłoto = new System.Windows.Forms.Label();
             this.lblDoświadczenie = new System.Windows.Forms.Label();
             this.lblPoziom = new System.Windows.Forms.Label();
-            this.btnTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -77,14 +76,14 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Poziom";
             // 
-            // lblZdrowie
+            // lblPunktyZdrowia
             // 
-            this.lblZdrowie.AutoSize = true;
-            this.lblZdrowie.Location = new System.Drawing.Point(110, 19);
-            this.lblZdrowie.Name = "lblZdrowie";
-            this.lblZdrowie.Size = new System.Drawing.Size(35, 13);
-            this.lblZdrowie.TabIndex = 4;
-            this.lblZdrowie.Text = "label5";
+            this.lblPunktyZdrowia.AutoSize = true;
+            this.lblPunktyZdrowia.Location = new System.Drawing.Point(110, 19);
+            this.lblPunktyZdrowia.Name = "lblPunktyZdrowia";
+            this.lblPunktyZdrowia.Size = new System.Drawing.Size(35, 13);
+            this.lblPunktyZdrowia.TabIndex = 4;
+            this.lblPunktyZdrowia.Text = "label5";
             // 
             // lblZłoto
             // 
@@ -114,26 +113,15 @@
             this.lblPoziom.TabIndex = 7;
             this.lblPoziom.Text = "label8";
             // 
-            // btnTest
-            // 
-            this.btnTest.Location = new System.Drawing.Point(286, 143);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(75, 23);
-            this.btnTest.TabIndex = 8;
-            this.btnTest.Text = "Test";
-            this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
-            // 
             // GraRPG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(719, 261);
-            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.lblPoziom);
             this.Controls.Add(this.lblDoświadczenie);
             this.Controls.Add(this.lblZłoto);
-            this.Controls.Add(this.lblZdrowie);
+            this.Controls.Add(this.lblPunktyZdrowia);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -152,11 +140,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblZdrowie;
+        private System.Windows.Forms.Label lblPunktyZdrowia;
         private System.Windows.Forms.Label lblZłoto;
         private System.Windows.Forms.Label lblDoświadczenie;
         private System.Windows.Forms.Label lblPoziom;
-        private System.Windows.Forms.Button btnTest;
     }
 }
 
