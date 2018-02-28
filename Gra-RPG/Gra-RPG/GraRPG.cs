@@ -21,5 +21,25 @@ namespace Gra_RPG
         {
 
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            lblZłoto.Text = "123";
+        }
     }
 }
