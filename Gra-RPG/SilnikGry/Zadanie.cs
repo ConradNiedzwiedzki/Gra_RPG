@@ -14,7 +14,7 @@ namespace SilnikGry
         public int PunktyDoswiadczeniaDoZdobycia { get; set; }
         public int ZlotoDoZdobycia { get; set; }
         public Przedmiot PrzedmiotNagroda { get; set; }
-        public List<PrzedmiotyDoWykonaniaZadania> PrzedmiotyDoWykonaniaZadania { get; set; }
+        public List<PrzedmiotDoWykonaniaZadania> PrzedmiotyDoWykonaniaZadania { get; set; }
 
         public Zadanie(int id, string nazwa, string opis, int punktyDoswiadczeniaDoZdobycia, int zlotoDoZdobycia)
         {
@@ -23,7 +23,7 @@ namespace SilnikGry
             Opis = opis;
             PunktyDoswiadczeniaDoZdobycia = punktyDoswiadczeniaDoZdobycia;
             ZlotoDoZdobycia = zlotoDoZdobycia;
-            PrzedmiotyDoWykonaniaZadania = new List<PrzedmiotyDoWykonaniaZadania>();
+            PrzedmiotyDoWykonaniaZadania = new List<PrzedmiotDoWykonaniaZadania>();
         }
     }
 }

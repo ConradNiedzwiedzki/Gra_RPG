@@ -70,7 +70,6 @@
             this.label2.Size = new System.Drawing.Size(33, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Złoto";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -80,7 +79,6 @@
             this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Doświadczenie";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -108,7 +106,6 @@
             this.lblZłoto.Size = new System.Drawing.Size(35, 13);
             this.lblZłoto.TabIndex = 5;
             this.lblZłoto.Text = "label6";
-            this.lblZłoto.Click += new System.EventHandler(this.label6_Click);
             // 
             // lblDoświadczenie
             // 
@@ -136,7 +133,6 @@
             this.label5.Size = new System.Drawing.Size(77, 13);
             this.label5.TabIndex = 8;
             this.label5.Text = "Wybierz akcję:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // cboBronie
             // 
@@ -293,7 +289,6 @@
             this.Controls.Add(this.label1);
             this.Name = "GraRPG";
             this.Text = "Gra RPG";
-            this.Load += new System.EventHandler(this.GraRPG_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInwentarz)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZadania)).EndInit();
             this.ResumeLayout(false);

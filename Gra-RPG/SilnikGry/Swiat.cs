@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SilnikGry
 {
-    class Swiat
+    public static class Swiat
     {
         public static readonly List<Przedmiot> Przedmioty = new List<Przedmiot>();
         public static readonly List<Potwor> Potwory = new List<Potwor>();
@@ -84,11 +84,11 @@ namespace SilnikGry
         private static void UtworzZadania()
         {
             Zadanie oczyscOgrodAlchemika = new Zadanie(ID_ZADANIA_OCZYSC_OGROD_ALECHEMIKA, "Oczyść ogród alchemika", "Zabij trzy szczury, które zalęgły się w ogrodzie alchemika i przynieś mu 3 szczurze ogony. W nagrodę otrzymasz miksturę lezenia i 10 kawałków złota.", 20, 10);
-            oczyscOgrodAlchemika.PrzedmiotyDoWykonaniaZadania.Add(new PrzedmiotyDoWykonaniaZadania(PrzedmiotPoID(ID_PRZEDMIOTU_SZCZURZY_OGON), 3));
+            oczyscOgrodAlchemika.PrzedmiotyDoWykonaniaZadania.Add(new PrzedmiotDoWykonaniaZadania(PrzedmiotPoID(ID_PRZEDMIOTU_SZCZURZY_OGON), 3));
             oczyscOgrodAlchemika.PrzedmiotNagroda = PrzedmiotPoID(ID_PRZEDMIOTU_MIKSTURA_LECZENIA);
 
             Zadanie oczyscPoleRolnika = new Zadanie(ID_ZADANIA_OCZYSC_POLE_ROLNIKA, "Oczyść pole rolnika", "Zabij węże, które zaległy się na polu rolnika i przynieś mu 3 kły. W nagrodę otrzymasz przepustkę i 20 kawałków złota.", 20, 20);
-            oczyscPoleRolnika.PrzedmiotyDoWykonaniaZadania.Add(new PrzedmiotyDoWykonaniaZadania(PrzedmiotPoID(ID_PRZEDMIOTU_KIEL_WEZA), 3));
+            oczyscPoleRolnika.PrzedmiotyDoWykonaniaZadania.Add(new PrzedmiotDoWykonaniaZadania(PrzedmiotPoID(ID_PRZEDMIOTU_KIEL_WEZA), 3));
             oczyscPoleRolnika.PrzedmiotNagroda = PrzedmiotPoID(ID_PRZEDMIOTU_PRZEPUSTKA);
 
             Zadania.Add(oczyscOgrodAlchemika);

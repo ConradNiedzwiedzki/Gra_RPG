@@ -13,6 +13,7 @@ namespace SilnikGry
         public int Poziom { get; set; }
         public List<PrzedmiotInwentarza> Inwentarz { get; set; }
         public List<ZadanieGracza> Zadania { get; set; }
+        public Lokalizacja BiezacaLokalizacja { get; set; }
 
         public Gracz(int biezacePunktyZdrowia, int maksymalnePunktyZdrowia, int zloto, int punktyDoswiadczenia, int poziom) : base(biezacePunktyZdrowia, maksymalnePunktyZdrowia)
         {
