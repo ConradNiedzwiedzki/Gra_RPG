@@ -60,5 +60,35 @@ namespace Gra_RPG
         {
 
         }
+
+        private void btnPolnoc_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnZachod_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnWschod_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPoludnie_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUzyjBroni_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUzyjMikstury_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

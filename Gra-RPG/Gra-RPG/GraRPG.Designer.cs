@@ -162,6 +162,7 @@
             this.btnUzyjBroni.TabIndex = 11;
             this.btnUzyjBroni.Text = "Użyj";
             this.btnUzyjBroni.UseVisualStyleBackColor = true;
+            this.btnUzyjBroni.Click += new System.EventHandler(this.btnUzyjBroni_Click);
             // 
             // btnUzyjMikstury
             // 
@@ -171,6 +172,7 @@
             this.btnUzyjMikstury.TabIndex = 12;
             this.btnUzyjMikstury.Text = "Użyj";
             this.btnUzyjMikstury.UseVisualStyleBackColor = true;
+            this.btnUzyjMikstury.Click += new System.EventHandler(this.btnUzyjMikstury_Click);
             // 
             // btnPolnoc
             // 
@@ -180,6 +182,7 @@
             this.btnPolnoc.TabIndex = 13;
             this.btnPolnoc.Text = "Północ";
             this.btnPolnoc.UseVisualStyleBackColor = true;
+            this.btnPolnoc.Click += new System.EventHandler(this.btnPolnoc_Click);
             // 
             // btnWschod
             // 
@@ -189,6 +192,7 @@
             this.btnWschod.TabIndex = 14;
             this.btnWschod.Text = "Wschód";
             this.btnWschod.UseVisualStyleBackColor = true;
+            this.btnWschod.Click += new System.EventHandler(this.btnWschod_Click);
             // 
             // btnPoludnie
             // 
@@ -198,6 +202,7 @@
             this.btnPoludnie.TabIndex = 15;
             this.btnPoludnie.Text = "Południe";
             this.btnPoludnie.UseVisualStyleBackColor = true;
+            this.btnPoludnie.Click += new System.EventHandler(this.btnPoludnie_Click);
             // 
             // btnZachod
             // 
@@ -207,6 +212,7 @@
             this.btnZachod.TabIndex = 16;
             this.btnZachod.Text = "Zachód";
             this.btnZachod.UseVisualStyleBackColor = true;
+            this.btnZachod.Click += new System.EventHandler(this.btnZachod_Click);
             // 
             // rbtWiadomosci
             // 

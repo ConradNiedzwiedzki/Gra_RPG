@@ -43,13 +43,13 @@ namespace SilnikGry
 
         static Swiat()
         {
-            UzupelnijPrzedmioty();
-            UzupelnijPotwory();
-            UzupelnijZadania();
-            UzupelnijLokalizacje();
+            UtworzPrzedmioty();
+            UtworzPotwory();
+            UtworzZadania();
+            UtworzLokalizacje();
         }
 
-        private static void UzupelnijPrzedmioty()
+        private static void UtworzPrzedmioty()
         {
             Przedmioty.Add(new Bron(ID_PRZEDMIOTU_ZARDZEWIALY_MIECZ, "Zardzewiały miecz", "Zardzewiałe miecze", 0, 5));
             Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_SZCZURZY_OGON, "Szczurzy ogon", "Szczurze ogony"));
@@ -62,7 +62,7 @@ namespace SilnikGry
             Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_PRZEPUSTKA, "Przepustka", "Przepustka"));
         }
 
-        private static void UzupelnijPotwory()
+        private static void UtworzPotwory()
         {
             Potwor szczur = new Potwor(ID_POTWORA_SZCZUR, "Szczur", 5, 3, 10, 3, 3);
             szczur.TabelaLupu.Add(new PrzedmiotLupu(PrzedmiotPoID(ID_PRZEDMIOTU_SZCZURZY_OGON), 75, false));
@@ -81,7 +81,7 @@ namespace SilnikGry
             Potwory.Add(wielkiPajak);
         }
 
-        private static void UzupelnijZadania()
+        private static void UtworzZadania()
         {
             Zadanie oczyscOgrodAlchemika = new Zadanie(ID_ZADANIA_OCZYSC_OGROD_ALECHEMIKA, "Oczyść ogród alchemika", "Zabij trzy szczury, które zalęgły się w ogrodzie alchemika i przynieś mu 3 szczurze ogony. W nagrodę otrzymasz miksturę lezenia i 10 kawałków złota.", 20, 10);
             oczyscOgrodAlchemika.PrzedmiotyDoWykonaniaZadania.Add(new PrzedmiotyDoWykonaniaZadania(PrzedmiotPoID(ID_PRZEDMIOTU_SZCZURZY_OGON), 3));
@@ -95,7 +95,7 @@ namespace SilnikGry
             Zadania.Add(oczyscPoleRolnika);
         }
 
-        private static void UzupelnijLokalizacje()
+        private static void UtworzLokalizacje()
         {
             // Stworzenie lokalizacji
             Lokalizacja dom = new Lokalizacja(ID_LOKALIZACJI_DOM, "Dom", "Twój dom. Serio.. Powinieneś tu posprzątać.");
