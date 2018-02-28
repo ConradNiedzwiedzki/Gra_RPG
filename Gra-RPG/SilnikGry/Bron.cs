@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace SilnikGry
 {
-    class Bron
+    class Bron : Przedmiot
     {
-        public int ID { get; set; }
-        public string Nazwa { get; set; }
-        public string NazwaMnoga { get; set; }
         public int MinimalneObrazenia { get; set; }
         public int MaksymalneObrazenia { get; set; }
     }

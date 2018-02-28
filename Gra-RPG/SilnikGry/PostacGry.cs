@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SilnikGry
 {
-    class MiksturaLeczenia : Przedmiot
+    public class PostacGry
     {
-        public int LiczbaPunktowLeczenia { get; set; }
+        public int BiezacePunktyZdrowia { get; set; }
+        public int MaksymalnePunktyZdrowia { get; set; }
     }
 }
