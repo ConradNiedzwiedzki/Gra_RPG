@@ -283,12 +283,12 @@ namespace Gra_RPG
 
             if(bronie.Count == 0)
             {
-                cboBronie.Visible.false;
-                btnUzyjBroni = false;
+                cboBronie.Visible = false;
+                btnUzyjBroni.Visible = false;
             }
             else
             {
-                cboBronie.DataSource = weapons;
+                cboBronie.DataSource = bronie;
                 cboBronie.DisplayMember = "Nazwa";
                 cboBronie.ValueMember = "ID";
                 cboBronie.SelectedIndex = 0;
