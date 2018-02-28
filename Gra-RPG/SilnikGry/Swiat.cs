@@ -114,6 +114,90 @@ namespace SilnikGry
             polePajakow.PotworZyjacyWTymMiejscu = PotworPoID(ID_POTWORA_WIELKI_PAJAK);
 
             // Połączenia lokalizacji
+
+            dom.LokalizacjaNaPolnoc = rynekMiasta;
+
+            rynekMiasta.LokalizacjaNaPolnoc = domAlchemika;
+            rynekMiasta.LokalizacjaNaPoludnie = dom;
+            rynekMiasta.LokalizacjaNaWschod = posterunekStrazniczy;
+            rynekMiasta.LokalizacjaNaZachod = chataRolnika;
+
+            chataRolnika.LokalizacjaNaWschod = rynekMiasta;
+            chataRolnika.LokalizacjaNaZachod = poleRolnika;
+
+            poleRolnika.LokalizacjaNaWschod = chataRolnika;
+
+            domAlchemika.LokalizacjaNaPoludnie = rynekMiasta;
+            domAlchemika.LokalizacjaNaPolnoc = ogrodAlchemika;
+
+            ogrodAlchemika.LokalizacjaNaPoludnie = domAlchemika;
+
+            posterunekStrazniczy.LokalizacjaNaWschod = most;
+            posterunekStrazniczy.LokalizacjaNaZachod = rynekMiasta;
+
+            most.LokalizacjaNaZachod = posterunekStrazniczy;
+            most.LokalizacjaNaWschod = polePajakow;
+
+            polePajakow.LokalizacjaNaZachod = most;
+
+            // Dodanie lokalizacji 
+            Lokalizacje.Add(dom);
+            Lokalizacje.Add(rynekMiasta);
+            Lokalizacje.Add(posterunekStrazniczy);
+            Lokalizacje.Add(domAlchemika);
+            Lokalizacje.Add(ogrodAlchemika);
+            Lokalizacje.Add(chataRolnika);
+            Lokalizacje.Add(poleRolnika);
+            Lokalizacje.Add(most);
+            Lokalizacje.Add(polePajakow);
+        }
+
+        public static Przedmiot PrzedmiotPoID(int id)
+        {
+            foreach(Przedmiot przedmiot in Przedmioty)
+            {
+                if(przedmiot.ID == id)
+                {
+                    return przedmiot;
+                }
+            }
+            return null;
+        }
+
+        public static Potwor PotworPoID(int id)
+        {
+            foreach(Potwor potwor in Potwory) 
+            {
+                if(potwor.ID == id)
+                {
+                    return potwor;
+                }
+            }
+            return null;
+        }
+
+        public static Zadanie ZadaniePoID(int id)
+        {
+            foreach(Zadanie zadanie in Zadania)
+            {
+                if(zadanie.ID == id)
+                {
+                    return zadanie;
+                }
+            }
+            return null;
+        }
+
+        public static Lokalizacja LokalizacjaPoID(int id)
+        {
+            foreach(Lokalizacja lokalizacja in Lokalizacje)
+            {
+                if (lokalizacja.ID == id)
+                { 
+                    return lokalizacja;
+                }
+            }
+            return null;
         }
     }
 }
