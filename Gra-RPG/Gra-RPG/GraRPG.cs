@@ -30,8 +30,7 @@ namespace Gra_RPG
             lblPoziom.Text = _gracz.Poziom.ToString();
         }
 
-        
-        private void btnPolnoc_Click(object sender, EventArgs e)
+                private void btnPolnoc_Click(object sender, EventArgs e)
         {
             IdzDo(_gracz.BiezacaLokalizacja.LokalizacjaNaPolnoc);
         }
@@ -50,27 +49,13 @@ namespace Gra_RPG
         {
             IdzDo(_gracz.BiezacaLokalizacja.LokalizacjaNaPoludnie);
         }
-
+        
         private void IdzDo(Lokalizacja nowaLokalizacja)
         {
-            if (nowaLokalizacja.PrzedmiotWymaganyDoWejscia != null)
+            if(!_gracz.PosiadaWymaganyPrzedmiotDoWejscia(nowaLokalizacja))
             {
-                bool graczPosiadaWymaganyPrzedmiot = false;
-
-                foreach (PrzedmiotInwentarza przedmiotInwentarza in _gracz.Inwentarz)
-                {
-                    if (przedmiotInwentarza.Szczegoly.ID == nowaLokalizacja.PrzedmiotWymaganyDoWejscia.ID)
-                    {
-                        graczPosiadaWymaganyPrzedmiot = true;
-                        break;
-                    }
-                }
-
-                if (!graczPosiadaWymaganyPrzedmiot)
-                {
-                    rbtWiadomosci.Text += "Musisz posiadać " + nowaLokalizacja.PrzedmiotWymaganyDoWejscia.Nazwa + ", aby móc przejść do tej lokalizacji." + Environment.NewLine;
-                    return;
-                }
+                rbtWiadomosci.Text += "Musisz posiadać " + nowaLokalizacja.PrzedmiotWymaganyDoWejscia.Nazwa + ", aby móc przejść do tej lokalizacji." + Environment.NewLine;
+                return;
             }
 
             _gracz.BiezacaLokalizacja = nowaLokalizacja;
@@ -89,68 +74,21 @@ namespace Gra_RPG
 
             if (nowaLokalizacja.DostepneZadanieTegoMiejsca != null)
             {
-                bool graczMaJuzZadanie = false;
-                bool graczWykonalJuzToZadanie = false;
-
-                foreach (ZadanieGracza zadanieGracza in _gracz.Zadania)
-                {
-                    if (zadanieGracza.Szczegoly.ID == nowaLokalizacja.DostepneZadanieTegoMiejsca.ID)
-                    {
-                        graczMaJuzZadanie = true;
-                        if (zadanieGracza.JestUkonczone)
-                        {
-                            graczWykonalJuzToZadanie = true;
-                        }
-                    }
-                }
-
+                bool graczMaJuzZadanie = _gracz.MaJuzToZadanie(nowaLokalizacja.DostepneZadanieTegoMiejsca);
+                bool graczWykonalJuzToZadanie = _gracz.WykonalJuzToZadanie(nowaLokalizacja.DostepneZadanieTegoMiejsca);
+                
                 if (graczMaJuzZadanie)
                 {
                     if (!graczWykonalJuzToZadanie)
                     {
-                        bool graczPosiadaWszystkiePrzedmiotyDoWykonaniaZadania = true;
-
-                        foreach (PrzedmiotDoWykonaniaZadania przedmiotDoWykonaniaZadania in nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotyDoWykonaniaZadania)
-                        {
-                            bool znalezionoPrzedmiotWInwentarzuGracza = false;
-
-                            foreach (PrzedmiotInwentarza przedmiotInwentarza in _gracz.Inwentarz)
-                            {
-                                if (przedmiotInwentarza.Szczegoly.ID == przedmiotDoWykonaniaZadania.Szczegoly.ID)
-                                {
-                                    znalezionoPrzedmiotWInwentarzuGracza = true;
-                                    if (przedmiotInwentarza.Ilosc < przedmiotDoWykonaniaZadania.Ilosc)
-                                    {
-                                        graczPosiadaWszystkiePrzedmiotyDoWykonaniaZadania = false;
-                                        break;
-                                    }
-                                    break;
-                                }
-                            }
-
-                            if (!znalezionoPrzedmiotWInwentarzuGracza)
-                            {
-                                graczPosiadaWszystkiePrzedmiotyDoWykonaniaZadania = false;
-                                break;
-                            }
-                        }
+                        bool graczPosiadaWszystkiePrzedmiotyDoWykonaniaZadania = _gracz.PosiadaWszystkiePrzedmiotyDoWykonaniaZadania(nowaLokalizacja.DostepneZadanieTegoMiejsca);
 
                         if (graczPosiadaWszystkiePrzedmiotyDoWykonaniaZadania)
                         {
                             rbtWiadomosci.Text += Environment.NewLine;
                             rbtWiadomosci.Text += "Wykonałeś zadanie o nazwie " + nowaLokalizacja.DostepneZadanieTegoMiejsca.Nazwa + "." + Environment.NewLine;
 
-                            foreach (PrzedmiotDoWykonaniaZadania przedmiotDoWykonaniaZadania in nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotyDoWykonaniaZadania)
-                            {
-                                foreach (PrzedmiotInwentarza przedmiotInwentarza in _gracz.Inwentarz)
-                                {
-                                    if (przedmiotInwentarza.Szczegoly.ID == przedmiotDoWykonaniaZadania.Szczegoly.ID)
-                                    {
-                                        przedmiotInwentarza.Ilosc -= przedmiotDoWykonaniaZadania.Ilosc;
-                                        break;
-                                    }
-                                }
-                            }
+                            _gracz.UsunPrzedmiotyWymaganeDoWykonaniaZadania(nowaLokalizacja.DostepneZadanieTegoMiejsca);
 
                             rbtWiadomosci.Text += "Otrzymałeś: " + Environment.NewLine;
                             rbtWiadomosci.Text += nowaLokalizacja.DostepneZadanieTegoMiejsca.PunktyDoswiadczeniaDoZdobycia.ToString() + " punktów doświadczenia" + Environment.NewLine;
