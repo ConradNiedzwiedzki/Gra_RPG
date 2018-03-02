@@ -257,7 +257,89 @@ namespace Gra_RPG
 
         private void btnUzyjBroni_Click(object sender, EventArgs e)
         {
+            Bron biezacaBron = (Bron)cboBronie.SelectedItem;
 
+            int obrazeniaZadaniePotworowi = GeneratorLiczbPseudolosowych.LiczbaPomiedzy(biezacaBron.MinimalneObrazenia, biezacaBron.MaksymalneObrazenia);
+
+            _biezacyPotwor.BiezacePunktyZdrowia -= obrazeniaZadaniePotworowi;
+
+            rbtWiadomosci.Text += "Zadałeś potworowi " + _biezacyPotwor.Nazwa + obrazeniaZadaniePotworowi.ToString() + " punktów obrażeń." + Environment.NewLine;
+
+            if(_biezacyPotwor.BiezacePunktyZdrowia <= 0)
+            {
+                rbtWiadomosci.Text += Environment.NewLine;
+                rbtWiadomosci.Text += "Pokonałeś potwora " + _biezacyPotwor.Nazwa + "." + Environment.NewLine;
+
+                _gracz.PunktyDoswiadczenia += _biezacyPotwor.PunktyDoswiadczeniaDoZdobycia;
+                rbtWiadomosci.Text += "Otrzymałeś " + _biezacyPotwor.PunktyDoswiadczeniaDoZdobycia.ToString() + " punktów doświadczenia." + Environment.NewLine;
+
+                _gracz.Zloto += _biezacyPotwor.ZlotoDoZdobycia;
+                rbtWiadomosci.Text += "Otrzymałeś " + _biezacyPotwor.ZlotoDoZdobycia.ToString() + " złoto" + Environment.NewLine;
+
+                List<PrzedmiotInwentarza> przedmiotyLupu = new List<PrzedmiotInwentarza>();
+
+                foreach(PrzedmiotLupu przedmiotLupu in _biezacyPotwor.TabelaLupu)
+                {
+                    if(GeneratorLiczbPseudolosowych.LiczbaPomiedzy(1, 100) <= przedmiotLupu.ProcentowaSzansaZdobyciaPrzedmiotu)
+                    {
+                        przedmiotyLupu.Add(new PrzedmiotInwentarza(przedmiotLupu.Szczegoly, 1));
+                    }
+                }
+
+                if(przedmiotyLupu.Count == 0)
+                {
+                    foreach(PrzedmiotLupu przedmiotLupu in _biezacyPotwor.TabelaLupu)
+                    {
+                        if(przedmiotLupu.JestPrzedmiotemDomyslnym)
+                        {
+                            przedmiotyLupu.Add(new PrzedmiotInwentarza(przedmiotLupu.Szczegoly, 1));
+                        }
+                    }
+                }
+
+                foreach(PrzedmiotInwentarza przedmiotInwentarza in przedmiotyLupu)
+                {
+                    _gracz.DodajPrzedmiotDoInwentarza(przedmiotInwentarza.Szczegoly);
+
+                    if (przedmiotInwentarza.Ilosc == 1)
+                    {
+                        rbtWiadomosci.Text += "Zdobyłeś " + przedmiotInwentarza.Ilosc.ToString() + " " + przedmiotInwentarza.Szczegoly.Nazwa + Environment.NewLine;
+                    }
+                    else
+                    {
+                        rbtWiadomosci.Text += "Zdobyłeś " + przedmiotInwentarza.Ilosc.ToString() + " " + przedmiotInwentarza.Szczegoly.NazwaMnoga + Environment.NewLine;
+                    }
+                }
+
+                lblPunktyZdrowia.Text = _gracz.BiezacePunktyZdrowia.ToString();
+                lblZłoto.Text = _gracz.Zloto.ToString();
+                lblDoświadczenie.Text = _gracz.PunktyDoswiadczenia.ToString();
+                lblPoziom.Text = _gracz.Poziom.ToString();
+
+                ZaktualizujSpisInwentarzaWInterfejsieUzytkownika();
+                ZaktualizujSpisBroniWInterfejsieUzytkownika();
+                ZaktualizujSpisMiskturWInterfejsieUzytkownika();
+
+                rbtWiadomosci.Text += Environment.NewLine;
+
+                IdzDo(_gracz.BiezacaLokalizacja);
+            }
+            else
+            {
+                int obrazeniaZadaneGraczowi = GeneratorLiczbPseudolosowych.LiczbaPomiedzy(0, _biezacyPotwor.MaksymalneObrazenia);
+
+                rbtWiadomosci.Text += _biezacyPotwor.Nazwa + " zadał Ci " + obrazeniaZadaneGraczowi.ToString() + " punktów obrażeń." + Environment.NewLine;
+
+                _gracz.BiezacePunktyZdrowia -= obrazeniaZadaneGraczowi;
+
+                lblPunktyZdrowia.Text = _gracz.BiezacePunktyZdrowia.ToString();
+
+                if(_gracz.BiezacePunktyZdrowia <= 0)
+                {
+                    rbtWiadomosci.Text += "Zostałeś zabity przez" + _biezacyPotwor.Nazwa + Environment.NewLine;
+                    IdzDo(Swiat.LokalizacjaPoID(Swiat.ID_LOKALIZACJI_DOM));
+                }
+            }
         }
 
         private void btnUzyjMikstury_Click(object sender, EventArgs e)
