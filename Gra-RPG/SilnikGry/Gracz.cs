@@ -94,5 +94,30 @@ namespace SilnikGry
                 }
             }
         }
+
+        public void DodajPrzedmiotDoInwentarza(Przedmiot przedmiotDoDodania)
+        {
+            foreach (PrzedmiotInwentarza przedmiotInwentarza in Inwentarz)
+            {
+                if (przedmiotInwentarza.Szczegoly.ID == przedmiotDoDodania.ID)
+                {
+                    przedmiotInwentarza.Ilosc++;
+                    return;
+                }
+            }
+            Inwentarz.Add(new PrzedmiotInwentarza(przedmiotDoDodania, 1));
+        }
+
+        public void OznaczZadanieJakoUkonczone(Zadanie zadanie)
+        {
+            foreach(ZadanieGracza zadanieGracza in Zadania)
+            {
+                if (zadanieGracza.Szczegoly.ID == zadanie.ID)
+                {
+                    zadanieGracza.JestUkonczone = true;
+                    return;
+                }
+            }
+        }
     }
 }

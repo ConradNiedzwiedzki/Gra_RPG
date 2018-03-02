@@ -98,31 +98,9 @@ namespace Gra_RPG
                             _gracz.PunktyDoswiadczenia += nowaLokalizacja.DostepneZadanieTegoMiejsca.PunktyDoswiadczeniaDoZdobycia;
                             _gracz.Zloto += nowaLokalizacja.DostepneZadanieTegoMiejsca.ZlotoDoZdobycia;
 
-                            bool przedmiotDodanyDoInwentarzaGracza = false;
+                            _gracz.DodajPrzedmiotDoInwentarza(nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotNagroda);
 
-                            foreach (PrzedmiotInwentarza przedmiotInwentarza in _gracz.Inwentarz)
-                            {
-                                if (przedmiotInwentarza.Szczegoly.ID == nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotNagroda.ID)
-                                {
-                                    przedmiotInwentarza.Ilosc++;
-                                    przedmiotDodanyDoInwentarzaGracza = true;
-                                    break;
-                                }
-                            }
-
-                            if (!przedmiotDodanyDoInwentarzaGracza)
-                            {
-                                _gracz.Inwentarz.Add(new PrzedmiotInwentarza(nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotNagroda, 1));
-                            }
-
-                            foreach (ZadanieGracza zadanieGracza in _gracz.Zadania)
-                            {
-                                if (zadanieGracza.Szczegoly.ID == nowaLokalizacja.DostepneZadanieTegoMiejsca.ID)
-                                {
-                                    zadanieGracza.JestUkonczone = true;
-                                    break;
-                                }
-                            }
+                            _gracz.OznaczZadanieJakoUkonczone(nowaLokalizacja.DostepneZadanieTegoMiejsca);
                         }
                     }
                 }
@@ -175,37 +153,49 @@ namespace Gra_RPG
                 btnUzyjMikstury.Visible = false;
             }
 
+            ZaktualizujSpisInwentarzaWInterfejsieUzytkownika();
+            ZaktualizujSpisZadanWInterfejsieUzytkownika();
+            ZaktualizujSpisBroniWInterfejsieUzytkownika();
+            ZaktualizujSpisMiskturWInterfejsieUzytkownika();
+        }
+
+        private void ZaktualizujSpisInwentarzaWInterfejsieUzytkownika()
+        {
             dgvInwentarz.RowHeadersVisible = false;
 
             dgvInwentarz.ColumnCount = 2;
-            dgvInwentarz.Columns[0].Name = "Nazwa";
+            dgvInwentarz.Columns[0].Name = "Name";
             dgvInwentarz.Columns[0].Width = 197;
-            dgvInwentarz.Columns[1].Name = "Ilość";
+            dgvInwentarz.Columns[0].Name = "Ilość";
 
             dgvInwentarz.Rows.Clear();
 
             foreach(PrzedmiotInwentarza przedmiotInwentarza in _gracz.Inwentarz)
             {
-                if (przedmiotInwentarza.Ilosc > 0)
+                if(przedmiotInwentarza.Ilosc > 0)
                 {
                     dgvInwentarz.Rows.Add(new[] { przedmiotInwentarza.Szczegoly.Nazwa, przedmiotInwentarza.Ilosc.ToString() });
                 }
             }
+        }
 
-            dgvZadania.RowHeadersVisible = false;
-
+        private void ZaktualizujSpisZadanWInterfejsieUzytkownika()
+        {
             dgvZadania.ColumnCount = 2;
-            dgvZadania.Columns[0].Name = "Nazwa";
+            dgvZadania.Columns[0].Name = "Name";
             dgvZadania.Columns[0].Width = 197;
-            dgvZadania.Columns[1].Name = "Ukończone?";
+            dgvZadania.Columns[0].Name = "Ukończone?";
 
             dgvZadania.Rows.Clear();
 
-            foreach(ZadanieGracza zadaniegracza in _gracz.Zadania)
+            foreach(ZadanieGracza zadanieGracza in _gracz.Zadania)
             {
-                dgvZadania.Rows.Add(new[] { zadaniegracza.Szczegoly.Nazwa, zadaniegracza.JestUkonczone.ToString() });
+                dgvZadania.Rows.Add(new[] { zadanieGracza.Szczegoly.Nazwa, zadanieGracza.JestUkonczone.ToString() });
             }
+        }
 
+        private void ZaktualizujSpisBroniWInterfejsieUzytkownika()
+        {
             List<Bron> bronie = new List<Bron>();
 
             foreach(PrzedmiotInwentarza przedmiotInwentarza in _gracz.Inwentarz)
@@ -229,20 +219,27 @@ namespace Gra_RPG
                 cboBronie.DataSource = bronie;
                 cboBronie.DisplayMember = "Nazwa";
                 cboBronie.ValueMember = "ID";
+
                 cboBronie.SelectedIndex = 0;
             }
+        }
+
+        private void ZaktualizujSpisMiskturWInterfejsieUzytkownika()
+        {
             List<MiksturaLeczenia> miksturyLeczenia = new List<MiksturaLeczenia>();
 
             foreach(PrzedmiotInwentarza przedmiotInwentarza in _gracz.Inwentarz)
             {
                 if(przedmiotInwentarza.Szczegoly is MiksturaLeczenia)
                 {
-                    if (przedmiotInwentarza.Ilosc > 0)
+                    if(przedmiotInwentarza.Ilosc > 0)
+                    {
                         miksturyLeczenia.Add((MiksturaLeczenia)przedmiotInwentarza.Szczegoly);
+                    }
                 }
             }
 
-            if(miksturyLeczenia.Count == 0)
+            if (miksturyLeczenia.Count == 0)
             {
                 cboMikstury.Visible = false;
                 btnUzyjMikstury.Visible = false;
@@ -252,10 +249,10 @@ namespace Gra_RPG
                 cboMikstury.DataSource = miksturyLeczenia;
                 cboMikstury.DisplayMember = "Nazwa";
                 cboMikstury.ValueMember = "ID";
+
                 cboMikstury.SelectedIndex = 0;
             }
         }
-
 
 
         private void btnUzyjBroni_Click(object sender, EventArgs e)
