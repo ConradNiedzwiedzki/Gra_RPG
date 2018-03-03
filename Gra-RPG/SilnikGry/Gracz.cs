@@ -10,7 +10,13 @@ namespace SilnikGry
     {
         public int Zloto { get; set; }
         public int PunktyDoswiadczenia { get; set; }
-        public int Poziom { get; set; }
+        public int Poziom
+        {
+            get
+            {
+                return ((PunktyDoswiadczenia / 100) + 1);
+            }
+        }
         public List<PrzedmiotInwentarza> Inwentarz { get; set; }
         public List<ZadanieGracza> Zadania { get; set; }
         public Lokalizacja BiezacaLokalizacja { get; set; }
