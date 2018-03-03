@@ -344,7 +344,41 @@ namespace Gra_RPG
 
         private void btnUzyjMikstury_Click(object sender, EventArgs e)
         {
+            MiksturaLeczenia mikstura = (MiksturaLeczenia)cboMikstury.SelectedItem;
 
+            _gracz.BiezacePunktyZdrowia = (_gracz.BiezacePunktyZdrowia + mikstura.LiczbaPunktowLeczenia);
+
+            if(_gracz.BiezacePunktyZdrowia > _gracz.MaksymalnePunktyZdrowia)
+            {
+                _gracz.BiezacePunktyZdrowia = _gracz.MaksymalnePunktyZdrowia;
+            }
+
+            foreach(PrzedmiotInwentarza przedmiotInwentarza in _gracz.Inwentarz)
+            {
+                if(przedmiotInwentarza.Szczegoly.ID == mikstura.ID)
+                {
+                    przedmiotInwentarza.Ilosc--;
+                    break;
+                }
+            }
+
+            rbtWiadomosci.Text += "Wypiłeś miksturę o nazwie " + mikstura.Nazwa + Environment.NewLine;
+
+            int obrazeniaZadaneGraczowi = GeneratorLiczbPseudolosowych.LiczbaPomiedzy(0, _biezacyPotwor.MaksymalneObrazenia);
+
+            rbtWiadomosci.Text += _biezacyPotwor.Nazwa + " zadał Ci " + obrazeniaZadaneGraczowi.ToString() + " punktów obrażeń." + Environment.NewLine;
+
+            _gracz.BiezacePunktyZdrowia -= obrazeniaZadaneGraczowi;
+
+            if(_gracz.BiezacePunktyZdrowia <= 0)
+            {
+                rbtWiadomosci.Text += "Zostałeś zabity przez" + _biezacyPotwor.Nazwa + Environment.NewLine;
+                IdzDo(Swiat.LokalizacjaPoID(Swiat.ID_LOKALIZACJI_DOM));
+            }
+
+            lblPunktyZdrowia.Text = _gracz.BiezacePunktyZdrowia.ToString();
+            ZaktualizujSpisInwentarzaWInterfejsieUzytkownika();
+            ZaktualizujSpisMiskturWInterfejsieUzytkownika();
         }
     }
 }
