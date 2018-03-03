@@ -21,11 +21,10 @@ namespace SilnikGry
         public List<ZadanieGracza> Zadania { get; set; }
         public Lokalizacja BiezacaLokalizacja { get; set; }
 
-        public Gracz(int biezacePunktyZdrowia, int maksymalnePunktyZdrowia, int zloto, int punktyDoswiadczenia, int poziom) : base(biezacePunktyZdrowia, maksymalnePunktyZdrowia)
+        public Gracz(int biezacePunktyZdrowia, int maksymalnePunktyZdrowia, int zloto, int punktyDoswiadczenia) : base(biezacePunktyZdrowia, maksymalnePunktyZdrowia)
         {
             Zloto = zloto;
             PunktyDoswiadczenia = punktyDoswiadczenia;
-            Poziom = poziom;
             Inwentarz = new List<PrzedmiotInwentarza>();
             Zadania = new List<ZadanieGracza>();
         }
@@ -38,18 +37,13 @@ namespace SilnikGry
             {
                 if (przedmiotinwentarza.Szczegoly.ID == lokalizacja.PrzedmiotWymaganyDoWejscia.ID)
                     return true;
-            }
-            return false;
+            }   
+            return Inwentarz.Exists(przedmiotInwentarza => przedmiotInwentarza.Szczegoly.ID == lokalizacja.PrzedmiotWymaganyDoWejscia.ID);
         }
 
         public bool MaJuzToZadanie(Zadanie zadanie)
         {
-            foreach(ZadanieGracza zadanieGracza in Zadania)
-            {
-                if (zadanieGracza.Szczegoly.ID == zadanie.ID)
-                    return true;
-            }
-            return false;
+            return Zadania.Exists(zadanieGracza => zadanieGracza.Szczegoly.ID == zadanie.ID);
         }
 
         public bool WykonalJuzToZadanie(Zadanie zadanie)
@@ -66,19 +60,7 @@ namespace SilnikGry
         {
             foreach (PrzedmiotDoWykonaniaZadania przedmiotDoWykonaniaZadania in zadanie.PrzedmiotyDoWykonaniaZadania)
             {
-                bool znalezionoPrzedmiotWInwentarzuGracza = false;
-
-                foreach (PrzedmiotInwentarza przedmiotInwentarza in Inwentarz)
-                {
-                    if (przedmiotInwentarza.Szczegoly.ID == przedmiotDoWykonaniaZadania.Szczegoly.ID)
-                    {
-                        znalezionoPrzedmiotWInwentarzuGracza = true;
-                        if (przedmiotInwentarza.Ilosc < przedmiotDoWykonaniaZadania.Ilosc)
-                            return false;
-                    }
-                }
-
-                if (!znalezionoPrzedmiotWInwentarzuGracza)
+                if (!Inwentarz.Exists(przedmiotInwentarza => przedmiotInwentarza.Szczegoly.ID == przedmiotDoWykonaniaZadania.Szczegoly.ID && przedmiotInwentarza.Ilosc >= przedmiotInwentarza.Ilosc))
                 {
                     return false;
                 }
@@ -90,12 +72,11 @@ namespace SilnikGry
         {
             foreach(PrzedmiotDoWykonaniaZadania przedmiotDoWykonaniaZadania in zadanie.PrzedmiotyDoWykonaniaZadania)
             {
-                foreach(PrzedmiotInwentarza przedmiotInwentarza in Inwentarz)
+                PrzedmiotInwentarza przedmiot = Inwentarz.SingleOrDefault(przedmiotInwentarza => przedmiotInwentarza.Szczegoly.ID == przedmiotDoWykonaniaZadania.Szczegoly.ID);
                 {
-                    if(przedmiotInwentarza.Szczegoly.ID == przedmiotDoWykonaniaZadania.Szczegoly.ID)
+                    if(przedmiot != null)
                     {
-                        przedmiotInwentarza.Ilosc -= przedmiotDoWykonaniaZadania.Ilosc;
-                        break;
+                        przedmiot.Ilosc -= przedmiotDoWykonaniaZadania.Ilosc;
                     }
                 }
             }
@@ -103,26 +84,25 @@ namespace SilnikGry
 
         public void DodajPrzedmiotDoInwentarza(Przedmiot przedmiotDoDodania)
         {
-            foreach (PrzedmiotInwentarza przedmiotInwentarza in Inwentarz)
+            PrzedmiotInwentarza przedmiot = Inwentarz.SingleOrDefault(przedmiotInwentarza => przedmiotInwentarza.Szczegoly.ID == przedmiotDoDodania.ID);
+
+            if(przedmiot == null)
             {
-                if (przedmiotInwentarza.Szczegoly.ID == przedmiotDoDodania.ID)
-                {
-                    przedmiotInwentarza.Ilosc++;
-                    return;
-                }
+                Inwentarz.Add(new PrzedmiotInwentarza(przedmiotDoDodania, 1));
             }
-            Inwentarz.Add(new PrzedmiotInwentarza(przedmiotDoDodania, 1));
+            else
+            {
+                przedmiot.Ilosc++;
+            }
         }
 
         public void OznaczZadanieJakoUkonczone(Zadanie zadanie)
         {
-            foreach(ZadanieGracza zadanieGracza in Zadania)
+            ZadanieGracza zadanieGracza = Zadania.SingleOrDefault(zG => zG.Szczegoly.ID == zadanie.ID);
+            
+            if (zadanieGracza != null)
             {
-                if (zadanieGracza.Szczegoly.ID == zadanie.ID)
-                {
-                    zadanieGracza.JestUkonczone = true;
-                    return;
-                }
+                zadanieGracza.JestUkonczone = true;
             }
         }
     }

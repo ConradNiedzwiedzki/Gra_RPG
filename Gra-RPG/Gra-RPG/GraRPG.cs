@@ -20,14 +20,11 @@ namespace Gra_RPG
         {
             InitializeComponent();            
 
-            _gracz = new Gracz(10, 10, 20, 0, 1);
+            _gracz = new Gracz(10, 10, 20, 0);
             IdzDo(Swiat.LokalizacjaPoID(Swiat.ID_LOKALIZACJI_DOM));
             _gracz.Inwentarz.Add(new PrzedmiotInwentarza(Swiat.PrzedmiotPoID(Swiat.ID_PRZEDMIOTU_ZARDZEWIALY_MIECZ), 1));
-            
-            lblPunktyZdrowia.Text = _gracz.BiezacePunktyZdrowia.ToString();
-            lblZłoto.Text = _gracz.Zloto.ToString();
-            lblDoświadczenie.Text = _gracz.PunktyDoswiadczenia.ToString();
-            lblPoziom.Text = _gracz.Poziom.ToString();
+
+            ZaktualizujStatystykiGracza();
         }
 
                 private void btnPolnoc_Click(object sender, EventArgs e)
@@ -97,9 +94,7 @@ namespace Gra_RPG
 
                             _gracz.PunktyDoswiadczenia += nowaLokalizacja.DostepneZadanieTegoMiejsca.PunktyDoswiadczeniaDoZdobycia;
                             _gracz.Zloto += nowaLokalizacja.DostepneZadanieTegoMiejsca.ZlotoDoZdobycia;
-
                             _gracz.DodajPrzedmiotDoInwentarza(nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotNagroda);
-
                             _gracz.OznaczZadanieJakoUkonczone(nowaLokalizacja.DostepneZadanieTegoMiejsca);
                         }
                     }
@@ -154,6 +149,7 @@ namespace Gra_RPG
                 btnUzyjMikstury.Visible = false;
             }
 
+            ZaktualizujStatystykiGracza();
             ZaktualizujSpisInwentarzaWInterfejsieUzytkownika();
             ZaktualizujSpisZadanWInterfejsieUzytkownika();
             ZaktualizujSpisBroniWInterfejsieUzytkownika();
@@ -163,12 +159,10 @@ namespace Gra_RPG
         private void ZaktualizujSpisInwentarzaWInterfejsieUzytkownika()
         {
             dgvInwentarz.RowHeadersVisible = false;
-
             dgvInwentarz.ColumnCount = 2;
             dgvInwentarz.Columns[0].Name = "Nazwa przedmiotu:";
             dgvInwentarz.Columns[0].Width = 197;
             dgvInwentarz.Columns[1].Name = "Ilość:";
-
             dgvInwentarz.Rows.Clear();
 
             foreach(PrzedmiotInwentarza przedmiotInwentarza in _gracz.Inwentarz)
@@ -186,7 +180,6 @@ namespace Gra_RPG
             dgvZadania.Columns[0].Name = "Nazwa zadania:";
             dgvZadania.Columns[0].Width = 197;
             dgvZadania.Columns[1].Name = "Status:";
-
             dgvZadania.Rows.Clear();
 
             foreach(ZadanieGracza zadanieGracza in _gracz.Zadania)
@@ -220,7 +213,6 @@ namespace Gra_RPG
                 cboBronie.DataSource = bronie;
                 cboBronie.DisplayMember = "Nazwa";
                 cboBronie.ValueMember = "ID";
-
                 cboBronie.SelectedIndex = 0;
             }
         }
@@ -272,7 +264,7 @@ namespace Gra_RPG
 
                 _gracz.PunktyDoswiadczenia += _biezacyPotwor.PunktyDoswiadczeniaDoZdobycia;
                 rbtWiadomosci.Text += "Otrzymałeś " + _biezacyPotwor.PunktyDoswiadczeniaDoZdobycia.ToString() + " punktów doświadczenia." + Environment.NewLine;
-
+                
                 _gracz.Zloto += _biezacyPotwor.ZlotoDoZdobycia;
                 rbtWiadomosci.Text += "Otrzymałeś " + _biezacyPotwor.ZlotoDoZdobycia.ToString() + " złoto" + Environment.NewLine;
 
@@ -311,11 +303,7 @@ namespace Gra_RPG
                     }
                 }
 
-                lblPunktyZdrowia.Text = _gracz.BiezacePunktyZdrowia.ToString();
-                lblZłoto.Text = _gracz.Zloto.ToString();
-                lblDoświadczenie.Text = _gracz.PunktyDoswiadczenia.ToString();
-                lblPoziom.Text = _gracz.Poziom.ToString();
-
+                ZaktualizujStatystykiGracza();
                 ZaktualizujSpisInwentarzaWInterfejsieUzytkownika();
                 ZaktualizujSpisBroniWInterfejsieUzytkownika();
                 ZaktualizujSpisMiskturWInterfejsieUzytkownika();
@@ -390,5 +378,13 @@ namespace Gra_RPG
             rbtWiadomosci.SelectionStart = rbtWiadomosci.Text.Length;
             rbtWiadomosci.ScrollToCaret();
         }
+        private void ZaktualizujStatystykiGracza()
+        {
+            lblPunktyZdrowia.Text = _gracz.BiezacePunktyZdrowia.ToString();
+            lblZłoto.Text = _gracz.Zloto.ToString();
+            lblDoświadczenie.Text = _gracz.PunktyDoswiadczenia.ToString();
+            lblPoziom.Text = _gracz.Poziom.ToString();
+        }
+
     }
 }
