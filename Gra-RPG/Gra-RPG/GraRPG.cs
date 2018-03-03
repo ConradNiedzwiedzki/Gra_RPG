@@ -121,6 +121,7 @@ namespace Gra_RPG
                         }
                     }
                     rbtWiadomosci.Text += Environment.NewLine;
+                    PrzewinNaDolOkienkaWiadomosci();
 
                     _gracz.Zadania.Add(new ZadanieGracza(nowaLokalizacja.DostepneZadanieTegoMiejsca));
                 }
@@ -335,11 +336,12 @@ namespace Gra_RPG
 
                 if(_gracz.BiezacePunktyZdrowia <= 0)
                 {
-                    rbtWiadomosci.Text += "Zostałeś zabity przez" + _biezacyPotwor.Nazwa + Environment.NewLine;
+                    rbtWiadomosci.Text += "Zostałeś zabity przez " + _biezacyPotwor.Nazwa + Environment.NewLine;
                     IdzDo(Swiat.LokalizacjaPoID(Swiat.ID_LOKALIZACJI_DOM));
                     _gracz.BiezacePunktyZdrowia = _gracz.MaksymalnePunktyZdrowia;
                 }
             }
+            PrzewinNaDolOkienkaWiadomosci();
         }
 
         private void btnUzyjMikstury_Click(object sender, EventArgs e)
@@ -372,7 +374,7 @@ namespace Gra_RPG
 
             if(_gracz.BiezacePunktyZdrowia <= 0)
             {
-                rbtWiadomosci.Text += "Zostałeś zabity przez" + _biezacyPotwor.Nazwa + Environment.NewLine;
+                rbtWiadomosci.Text += "Zostałeś zabity przez " + _biezacyPotwor.Nazwa + Environment.NewLine;
                 IdzDo(Swiat.LokalizacjaPoID(Swiat.ID_LOKALIZACJI_DOM));
                 _gracz.BiezacePunktyZdrowia = _gracz.MaksymalnePunktyZdrowia;
             }
@@ -380,6 +382,13 @@ namespace Gra_RPG
             lblPunktyZdrowia.Text = _gracz.BiezacePunktyZdrowia.ToString();
             ZaktualizujSpisInwentarzaWInterfejsieUzytkownika();
             ZaktualizujSpisMiskturWInterfejsieUzytkownika();
+            PrzewinNaDolOkienkaWiadomosci();
+        }
+
+        private void PrzewinNaDolOkienkaWiadomosci()
+        {
+            rbtWiadomosci.SelectionStart = rbtWiadomosci.Text.Length;
+            rbtWiadomosci.ScrollToCaret();
         }
     }
 }
