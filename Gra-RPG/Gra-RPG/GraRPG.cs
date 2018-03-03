@@ -86,14 +86,14 @@ namespace Gra_RPG
                         if (graczPosiadaWszystkiePrzedmiotyDoWykonaniaZadania)
                         {
                             rbtWiadomosci.Text += Environment.NewLine;
-                            rbtWiadomosci.Text += "Wykonałeś zadanie o nazwie " + nowaLokalizacja.DostepneZadanieTegoMiejsca.Nazwa + "." + Environment.NewLine;
+                            rbtWiadomosci.Text += "Gratulacje! Wykonałeś zadanie o nazwie " + nowaLokalizacja.DostepneZadanieTegoMiejsca.Nazwa + "." + Environment.NewLine;
 
                             _gracz.UsunPrzedmiotyWymaganeDoWykonaniaZadania(nowaLokalizacja.DostepneZadanieTegoMiejsca);
 
                             rbtWiadomosci.Text += "Otrzymałeś: " + Environment.NewLine;
                             rbtWiadomosci.Text += nowaLokalizacja.DostepneZadanieTegoMiejsca.PunktyDoswiadczeniaDoZdobycia.ToString() + " punktów doświadczenia" + Environment.NewLine;
                             rbtWiadomosci.Text += nowaLokalizacja.DostepneZadanieTegoMiejsca.ZlotoDoZdobycia.ToString() + " złota" + Environment.NewLine;
-                            rbtWiadomosci.Text += nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotNagroda.Nazwa + Environment.NewLine;
+                            rbtWiadomosci.Text += "1 " + nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotNagroda.Nazwa + Environment.NewLine + Environment.NewLine;
 
                             _gracz.PunktyDoswiadczenia += nowaLokalizacja.DostepneZadanieTegoMiejsca.PunktyDoswiadczeniaDoZdobycia;
                             _gracz.Zloto += nowaLokalizacja.DostepneZadanieTegoMiejsca.ZlotoDoZdobycia;
@@ -106,18 +106,18 @@ namespace Gra_RPG
                 }
                 else
                 {
-                    rbtWiadomosci.Text += "Otrzymałeś zadanie o nazwie " + nowaLokalizacja.DostepneZadanieTegoMiejsca.Nazwa + "." + Environment.NewLine;
+                    rbtWiadomosci.Text += "Otrzymałeś zadanie o nazwie:" + Environment.NewLine + nowaLokalizacja.DostepneZadanieTegoMiejsca.Nazwa + "." + Environment.NewLine;
                     rbtWiadomosci.Text += nowaLokalizacja.DostepneZadanieTegoMiejsca.Opis + Environment.NewLine;
                     rbtWiadomosci.Text += "Aby ukończyć to zadanie, powróć tu z:" + Environment.NewLine;
                     foreach (PrzedmiotDoWykonaniaZadania przedmiotDoWykonaniaZadania in nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotyDoWykonaniaZadania)
                     {
                         if (przedmiotDoWykonaniaZadania.Ilosc == 1)
                         {
-                            rbtWiadomosci.Text += przedmiotDoWykonaniaZadania.Ilosc.ToString() + " " + przedmiotDoWykonaniaZadania.Szczegoly.Nazwa + Environment.NewLine;
+                            rbtWiadomosci.Text += " - " + przedmiotDoWykonaniaZadania.Ilosc.ToString() + " " + przedmiotDoWykonaniaZadania.Szczegoly.Nazwa + Environment.NewLine;
                         }
                         else
                         {
-                            rbtWiadomosci.Text += przedmiotDoWykonaniaZadania.Ilosc.ToString() + " " + przedmiotDoWykonaniaZadania.Szczegoly.NazwaMnoga + Environment.NewLine;
+                            rbtWiadomosci.Text += " - " + przedmiotDoWykonaniaZadania.Ilosc.ToString() + " " + przedmiotDoWykonaniaZadania.Szczegoly.NazwaMnoga + Environment.NewLine;
                         }
                     }
                     rbtWiadomosci.Text += Environment.NewLine;
@@ -128,7 +128,7 @@ namespace Gra_RPG
 
             if (nowaLokalizacja.PotworZyjacyWTymMiejscu != null)
             {
-                rbtWiadomosci.Text += "Widzisz " + nowaLokalizacja.PotworZyjacyWTymMiejscu.Nazwa + Environment.NewLine;
+                rbtWiadomosci.Text += "Widzisz " + nowaLokalizacja.PotworZyjacyWTymMiejscu.Nazwa + "a." + Environment.NewLine;
 
                 Potwor typowyPotwor = Swiat.PotworPoID(nowaLokalizacja.PotworZyjacyWTymMiejscu.ID);
                 _biezacyPotwor = new Potwor(typowyPotwor.ID, typowyPotwor.Nazwa, typowyPotwor.MaksymalneObrazenia, typowyPotwor.PunktyDoswiadczeniaDoZdobycia, typowyPotwor.ZlotoDoZdobycia, typowyPotwor.BiezacePunktyZdrowia, typowyPotwor.MaksymalnePunktyZdrowia);
@@ -164,9 +164,9 @@ namespace Gra_RPG
             dgvInwentarz.RowHeadersVisible = false;
 
             dgvInwentarz.ColumnCount = 2;
-            dgvInwentarz.Columns[0].Name = "Name";
+            dgvInwentarz.Columns[0].Name = "Nazwa przedmiotu:";
             dgvInwentarz.Columns[0].Width = 197;
-            dgvInwentarz.Columns[0].Name = "Ilość";
+            dgvInwentarz.Columns[1].Name = "Ilość:";
 
             dgvInwentarz.Rows.Clear();
 
@@ -182,15 +182,15 @@ namespace Gra_RPG
         private void ZaktualizujSpisZadanWInterfejsieUzytkownika()
         {
             dgvZadania.ColumnCount = 2;
-            dgvZadania.Columns[0].Name = "Name";
+            dgvZadania.Columns[0].Name = "Nazwa zadania:";
             dgvZadania.Columns[0].Width = 197;
-            dgvZadania.Columns[0].Name = "Ukończone?";
+            dgvZadania.Columns[1].Name = "Status:";
 
             dgvZadania.Rows.Clear();
 
             foreach(ZadanieGracza zadanieGracza in _gracz.Zadania)
             {
-                dgvZadania.Rows.Add(new[] { zadanieGracza.Szczegoly.Nazwa, zadanieGracza.JestUkonczone.ToString() });
+                dgvZadania.Rows.Add(new[] { zadanieGracza.Szczegoly.Nazwa, zadanieGracza.JestUkonczonePoPolsku(zadanieGracza.JestUkonczone)});
             }
         }
 
@@ -263,11 +263,10 @@ namespace Gra_RPG
 
             _biezacyPotwor.BiezacePunktyZdrowia -= obrazeniaZadaniePotworowi;
 
-            rbtWiadomosci.Text += "Zadałeś potworowi " + _biezacyPotwor.Nazwa + obrazeniaZadaniePotworowi.ToString() + " punktów obrażeń." + Environment.NewLine;
+            rbtWiadomosci.Text += "Zadałeś potworowi " + _biezacyPotwor.Nazwa + " " + obrazeniaZadaniePotworowi.ToString() + " punktów obrażeń." + Environment.NewLine;
 
             if(_biezacyPotwor.BiezacePunktyZdrowia <= 0)
             {
-                rbtWiadomosci.Text += Environment.NewLine;
                 rbtWiadomosci.Text += "Pokonałeś potwora " + _biezacyPotwor.Nazwa + "." + Environment.NewLine;
 
                 _gracz.PunktyDoswiadczenia += _biezacyPotwor.PunktyDoswiadczeniaDoZdobycia;
@@ -338,6 +337,7 @@ namespace Gra_RPG
                 {
                     rbtWiadomosci.Text += "Zostałeś zabity przez" + _biezacyPotwor.Nazwa + Environment.NewLine;
                     IdzDo(Swiat.LokalizacjaPoID(Swiat.ID_LOKALIZACJI_DOM));
+                    _gracz.BiezacePunktyZdrowia = _gracz.MaksymalnePunktyZdrowia;
                 }
             }
         }
@@ -374,6 +374,7 @@ namespace Gra_RPG
             {
                 rbtWiadomosci.Text += "Zostałeś zabity przez" + _biezacyPotwor.Nazwa + Environment.NewLine;
                 IdzDo(Swiat.LokalizacjaPoID(Swiat.ID_LOKALIZACJI_DOM));
+                _gracz.BiezacePunktyZdrowia = _gracz.MaksymalnePunktyZdrowia;
             }
 
             lblPunktyZdrowia.Text = _gracz.BiezacePunktyZdrowia.ToString();

@@ -16,5 +16,13 @@ namespace SilnikGry
             Szczegoly = szczegoly;
             JestUkonczone = false;
         }
+
+        public string JestUkonczonePoPolsku(bool JestUkonczone)
+        {
+            if (JestUkonczone == true)
+                return "Ukończone.";
+            else
+                return "W toku.";
+        }
     }
 }

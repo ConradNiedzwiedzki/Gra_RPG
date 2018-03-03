@@ -51,15 +51,15 @@ namespace SilnikGry
 
         private static void UtworzPrzedmioty()
         {
-            Przedmioty.Add(new Bron(ID_PRZEDMIOTU_ZARDZEWIALY_MIECZ, "Zardzewiały miecz", "Zardzewiałe miecze", 0, 5));
-            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_SZCZURZY_OGON, "Szczurzy ogon", "Szczurze ogony"));
-            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_KAWALEK_FUTRA, "Kawałek futra", "Kawałki futra"));
-            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_KIEL_WEZA, "Kieł węża", "Kły węża"));
-            Przedmioty.Add(new Bron(ID_PRZEDMIOTU_MACZUGA, "Maczuga", "Maczugi", 3, 10));
-            Przedmioty.Add(new MiksturaLeczenia(ID_PRZEDMIOTU_MIKSTURA_LECZENIA, "Mikstura leczenia", "Mikstury leczenia", 5));
-            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_KIEL_PAJAKA, "Kieł pająka", "Kły pająka"));
-            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_PAJECZYNA, "Pajęczyna", "Pajęczyny"));
-            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_PRZEPUSTKA, "Przepustka", "Przepustka"));
+            Przedmioty.Add(new Bron(ID_PRZEDMIOTU_ZARDZEWIALY_MIECZ, "zardzewiały miecz", "zardzewiałe miecze", 0, 5));
+            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_SZCZURZY_OGON, "szczurzy ogon", "szczurze ogony"));
+            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_KAWALEK_FUTRA, "kawałek futra", "kawałki futra"));
+            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_KIEL_WEZA, "kieł węża", "kły węża"));
+            Przedmioty.Add(new Bron(ID_PRZEDMIOTU_MACZUGA, "maczuga", "maczugi", 3, 10));
+            Przedmioty.Add(new MiksturaLeczenia(ID_PRZEDMIOTU_MIKSTURA_LECZENIA, "mikstura leczenia", "mikstury leczenia", 5));
+            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_KIEL_PAJAKA, "kieł pająka", "kły pająka"));
+            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_PAJECZYNA, "pajęczyna", "pajęczyny"));
+            Przedmioty.Add(new Przedmiot(ID_PRZEDMIOTU_PRZEPUSTKA, "przepustka", "przepustka"));
         }
 
         private static void UtworzPotwory()
@@ -98,7 +98,7 @@ namespace SilnikGry
         private static void UtworzLokalizacje()
         {
             // Stworzenie lokalizacji
-            Lokalizacja dom = new Lokalizacja(ID_LOKALIZACJI_DOM, "Dom", "Twój dom. Serio.. Powinieneś tu posprzątać.");
+            Lokalizacja dom = new Lokalizacja(ID_LOKALIZACJI_DOM, "Dom", "Jesteś w swoim domu. Przydałoby się tu posprzątać...");
             Lokalizacja rynekMiasta = new Lokalizacja(ID_LOKALIZACJI_RYNEK_MIASTA, "Rynek miasta", "Widzisz fontannę.");
             Lokalizacja domAlchemika = new Lokalizacja(ID_LOKALIZACJI_DOM_ALCHEMIKA, "Dom alchemika", "Na półkach jest bardzo dużo dziwnych roślin,");
             domAlchemika.DostepneZadanieTegoMiejsca = ZadaniePoID(ID_ZADANIA_OCZYSC_OGROD_ALECHEMIKA);
