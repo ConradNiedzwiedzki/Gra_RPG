@@ -1,13 +1,8 @@
 ﻿using SilnikGry;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Gra_RPG
 {
@@ -15,19 +10,26 @@ namespace Gra_RPG
     {
         private Gracz _gracz;
         private Potwor _biezacyPotwor;
+        private const string NAZWA_PLIKU_DANYCH_GRACZA = "DaneGracza.xml";
 
         public GraRPG()
         {
-            InitializeComponent();            
+            InitializeComponent();
 
-            _gracz = new Gracz(10, 10, 20, 0);
-            IdzDo(Swiat.LokalizacjaPoID(Swiat.ID_LOKALIZACJI_DOM));
-            _gracz.Inwentarz.Add(new PrzedmiotInwentarza(Swiat.PrzedmiotPoID(Swiat.ID_PRZEDMIOTU_ZARDZEWIALY_MIECZ), 1));
-
+            if(File.Exists(NAZWA_PLIKU_DANYCH_GRACZA))
+            {
+                _gracz = Gracz.UtworzGraczaZStringuXML(File.ReadAllText(NAZWA_PLIKU_DANYCH_GRACZA));
+            }
+            else
+            {
+                _gracz = Gracz.UtworzDomyslnegoGracza();
+            }
+            
+            IdzDo(_gracz.BiezacaLokalizacja);
             ZaktualizujStatystykiGracza();
         }
 
-                private void btnPolnoc_Click(object sender, EventArgs e)
+        private void btnPolnoc_Click(object sender, EventArgs e)
         {
             IdzDo(_gracz.BiezacaLokalizacja.LokalizacjaNaPolnoc);
         }
@@ -386,5 +388,9 @@ namespace Gra_RPG
             lblPoziom.Text = _gracz.Poziom.ToString();
         }
 
+        private void GraRPG_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            File.WriteAllText(NAZWA_PLIKU_DANYCH_GRACZA, _gracz.KonwertujDoStringaXML());
+        }
     }
 }

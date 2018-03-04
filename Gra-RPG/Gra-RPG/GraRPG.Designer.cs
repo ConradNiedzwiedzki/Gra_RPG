@@ -289,6 +289,7 @@
             this.Controls.Add(this.label1);
             this.Name = "GraRPG";
             this.Text = "Gra RPG";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GraRPG_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInwentarz)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZadania)).EndInit();
             this.ResumeLayout(false);
