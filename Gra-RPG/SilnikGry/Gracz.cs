@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
 
 namespace SilnikGry
 {
@@ -104,6 +102,71 @@ namespace SilnikGry
             {
                 zadanieGracza.JestUkonczone = true;
             }
+        }
+
+        public string KonwertujDoStringaXML()
+        {
+            XmlDocument daneGracza = new XmlDocument();
+
+            XmlNode gracz = daneGracza.CreateElement("Gracz");
+            daneGracza.AppendChild(gracz);
+
+            XmlNode statystyki = daneGracza.CreateElement("Statystyki");
+            gracz.AppendChild(statystyki);
+
+            XmlNode biezacePunktyZdrowia = daneGracza.CreateElement("BiezacePunktyZdrowia");
+            biezacePunktyZdrowia.AppendChild(daneGracza.CreateTextNode(this.BiezacePunktyZdrowia.ToString()));
+            statystyki.AppendChild(biezacePunktyZdrowia);
+
+            XmlNode maksymalnePunktyZdrowia = daneGracza.CreateElement("MaksymalnePunktyZdrowia");
+            maksymalnePunktyZdrowia.AppendChild(daneGracza.CreateTextNode(this.MaksymalnePunktyZdrowia.ToString()));
+            statystyki.AppendChild(maksymalnePunktyZdrowia);
+
+            XmlNode zloto = daneGracza.CreateElement("Zloto");
+            zloto.AppendChild(daneGracza.CreateTextNode(this.Zloto.ToString()));
+            statystyki.AppendChild(zloto);
+
+            XmlNode punktyDoswiadczenia = daneGracza.CreateElement("PunktyDoswiadczenia");
+            punktyDoswiadczenia.AppendChild(daneGracza.CreateTextNode(this.PunktyDoswiadczenia.ToString()));
+            statystyki.AppendChild(punktyDoswiadczenia);
+
+            XmlNode biezacaLokalizacja = daneGracza.CreateElement("BiezacaLokalizacja");
+            biezacaLokalizacja.AppendChild(daneGracza.CreateTextNode(this.BiezacaLokalizacja.ToString()));
+            statystyki.AppendChild(biezacaLokalizacja);
+
+            XmlNode przedmiotyInwentarza = daneGracza.CreateElement("PrzedmiotyInwentarza");
+            gracz.AppendChild(przedmiotyInwentarza);
+
+            foreach(PrzedmiotInwentarza przedmiot in this.Inwentarz)
+            {
+                XmlNode przedmiotInwentarza = daneGracza.CreateElement("PrzedmiotInwentarza");
+
+                XmlAttribute atrybutID = daneGracza.CreateAttribute("ID");
+                atrybutID.Value = przedmiot.Szczegoly.ID.ToString();
+                przedmiotInwentarza.Attributes.Append(atrybutID);
+
+                XmlAttribute atrybutIlosc = daneGracza.CreateAttribute("Ilosc");
+                atrybutIlosc.Value = przedmiot.Ilosc.ToString();
+                przedmiotInwentarza.Attributes.Append(atrybutIlosc);
+            }
+
+            XmlNode zadaniaGracza = daneGracza.CreateElement("ZadaniaGracza");
+            gracz.AppendChild(zadaniaGracza);
+
+            foreach(ZadanieGracza zadanie in this.Zadania)
+            {
+                XmlNode zadanieGracza = daneGracza.CreateElement("ZadanieGracza");
+
+                XmlAttribute atrybutID = daneGracza.CreateAttribute("ID");
+                atrybutID.Value = zadanie.Szczegoly.ID.ToString();
+                zadanieGracza.Attributes.Append(atrybutID);
+
+                XmlAttribute atrybutJestUkonczone = daneGracza.CreateAttribute("JestUkonczone");
+                atrybutJestUkonczone.Value = zadanie.JestUkonczone.ToString();
+                zadanieGracza.Attributes.Append(atrybutJestUkonczone);
+            }
+
+            return daneGracza.InnerXml;
         }
     }
 }
