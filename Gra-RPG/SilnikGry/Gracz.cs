@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
@@ -19,12 +20,68 @@ namespace SilnikGry
         public List<ZadanieGracza> Zadania { get; set; }
         public Lokalizacja BiezacaLokalizacja { get; set; }
 
-        public Gracz(int biezacePunktyZdrowia, int maksymalnePunktyZdrowia, int zloto, int punktyDoswiadczenia) : base(biezacePunktyZdrowia, maksymalnePunktyZdrowia)
+        private Gracz(int biezacePunktyZdrowia, int maksymalnePunktyZdrowia, int zloto, int punktyDoswiadczenia) : base(biezacePunktyZdrowia, maksymalnePunktyZdrowia)
         {
             Zloto = zloto;
             PunktyDoswiadczenia = punktyDoswiadczenia;
             Inwentarz = new List<PrzedmiotInwentarza>();
             Zadania = new List<ZadanieGracza>();
+        }
+
+        public static Gracz UtworzDomyslnegoGracza()
+        {
+            Gracz gracz = new Gracz(10, 10, 20, 0);
+            gracz.Inwentarz.Add(new PrzedmiotInwentarza(Swiat.PrzedmiotPoID(Swiat.ID_PRZEDMIOTU_ZARDZEWIALY_MIECZ), 1));
+            gracz.BiezacaLokalizacja = Swiat.LokalizacjaPoID(Swiat.ID_LOKALIZACJI_DOM);
+            return gracz;
+        }
+
+        public static Gracz UtworzGraczaZStringuXML(string daneXMLGracza)
+        {
+            try
+            {
+                XmlDocument daneGracza = new XmlDocument();
+
+                daneGracza.LoadXml(daneXMLGracza);
+
+                int biezacePunktyZdrowia = Convert.ToInt32(daneGracza.SelectSingleNode("/Gracz/Statystyki/BiezacePunktyZdrowia").InnerText);
+                int maksymalnePunktyZdrowia = Convert.ToInt32(daneGracza.SelectSingleNode("/Gracz/Statystyki/MaksymalnePunktyZdrowia").InnerText);
+                int zloto = Convert.ToInt32(daneGracza.SelectSingleNode("/Gracz/Statystyki/Zloto").InnerText);
+                int punktyDoswiadczenia = Convert.ToInt32(daneGracza.SelectSingleNode("/Gracz/Statystyki/PunktyDoswiadczenia").InnerText);
+
+                Gracz gracz = new Gracz(biezacePunktyZdrowia, maksymalnePunktyZdrowia, zloto, punktyDoswiadczenia);
+
+                int idBiezacejLokalizacji = Convert.ToInt32(daneGracza.SelectSingleNode("/Gracz/Statystyki/BiezacaLokalizacja").InnerText);
+                gracz.BiezacaLokalizacja = Swiat.LokalizacjaPoID(idBiezacejLokalizacji);
+
+                foreach(XmlNode node in daneGracza.SelectNodes("/Gracz/PrzedmiotyInwentarza/PrzedmiotInwentarza"))
+                {
+                    int id = Convert.ToInt32(node.Attributes["ID"].Value);
+                    int ilosc = Convert.ToInt32(node.Attributes["Ilosc"].Value);
+
+                    for(int i = 0; i < ilosc; i++)
+                    {
+                        gracz.DodajPrzedmiotDoInwentarza(Swiat.PrzedmiotPoID(id));
+                    }
+                }
+
+                foreach(XmlNode node in daneGracza.SelectNodes("/Gracz/ZadaniaGracza/ZadanieGracza"))
+                {
+                    int id = Convert.ToInt32(node.Attributes["ID"].Value);
+                    bool jestUkonczone = Convert.ToBoolean(node.Attributes["JestUkonczone"].Value);
+
+                    ZadanieGracza zadanieGracza = new ZadanieGracza(Swiat.ZadaniePoID(id));
+                    zadanieGracza.JestUkonczone = jestUkonczone;
+
+                    gracz.Zadania.Add(zadanieGracza);
+                }
+
+                return gracz;
+            }
+            catch
+            {
+                return Gracz.UtworzDomyslnegoGracza();
+            }
         }
 
         public bool PosiadaWymaganyPrzedmiotDoWejscia(Lokalizacja lokalizacja)
