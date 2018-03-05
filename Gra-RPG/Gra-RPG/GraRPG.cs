@@ -212,10 +212,21 @@ namespace Gra_RPG
             }
             else
             {
+                cboBronie.SelectedIndexChanged -= cboBronie_ZmienionoWybranyIndeks;
                 cboBronie.DataSource = bronie;
+                cboBronie.SelectedIndexChanged += cboBronie_ZmienionoWybranyIndeks;
                 cboBronie.DisplayMember = "Nazwa";
                 cboBronie.ValueMember = "ID";
                 cboBronie.SelectedIndex = 0;
+
+                if(_gracz.BiezacaBron != null)
+                {
+                    cboBronie.SelectedItem = _gracz.BiezacaBron;
+                }
+                else
+                {
+                    cboBronie.SelectedIndex = 0;
+                }
             }
         }
 
@@ -391,6 +402,11 @@ namespace Gra_RPG
         private void GraRPG_FormClosing(object sender, FormClosingEventArgs e)
         {
             File.WriteAllText(NAZWA_PLIKU_DANYCH_GRACZA, _gracz.KonwertujDoStringaXML());
+        }
+
+        private void cboBronie_ZmienionoWybranyIndeks(object sender, EventArgs e)
+        {
+            _gracz.BiezacaBron = (Bron)cboBronie.SelectedItem;
         }
     }
 }

@@ -19,6 +19,7 @@ namespace SilnikGry
         public List<PrzedmiotInwentarza> Inwentarz { get; set; }
         public List<ZadanieGracza> Zadania { get; set; }
         public Lokalizacja BiezacaLokalizacja { get; set; }
+        public Bron BiezacaBron { get; set; }
 
         private Gracz(int biezacePunktyZdrowia, int maksymalnePunktyZdrowia, int zloto, int punktyDoswiadczenia) : base(biezacePunktyZdrowia, maksymalnePunktyZdrowia)
         {
@@ -53,6 +54,12 @@ namespace SilnikGry
 
                 int idBiezacejLokalizacji = Convert.ToInt32(daneGracza.SelectSingleNode("/Gracz/Statystyki/BiezacaLokalizacja").InnerText);
                 gracz.BiezacaLokalizacja = Swiat.LokalizacjaPoID(idBiezacejLokalizacji);
+
+                if(daneGracza.SelectSingleNode("/Gracz/Statystyki/BiezacaBron") != null)
+                {
+                    int idBiezacejBroni = Convert.ToInt32(daneGracza.SelectSingleNode("/Gracz/Statystyki/BiezacaBron").InnerText);
+                    gracz.BiezacaBron = (Bron)Swiat.PrzedmiotPoID(idBiezacejBroni);
+                }
 
                 foreach(XmlNode node in daneGracza.SelectNodes("/Gracz/PrzedmiotyInwentarza/PrzedmiotInwentarza"))
                 {
@@ -190,6 +197,13 @@ namespace SilnikGry
             XmlNode biezacaLokalizacja = daneGracza.CreateElement("BiezacaLokalizacja");
             biezacaLokalizacja.AppendChild(daneGracza.CreateTextNode(this.BiezacaLokalizacja.ToString()));
             statystyki.AppendChild(biezacaLokalizacja);
+
+            if(BiezacaBron != null)
+            {
+                XmlNode biezacaBron = daneGracza.CreateElement("BiezacaBron");
+                biezacaBron.AppendChild(daneGracza.CreateTextNode(this.BiezacaBron.ID.ToString()));
+                statystyki.AppendChild(biezacaBron);
+            }
 
             XmlNode przedmiotyInwentarza = daneGracza.CreateElement("PrzedmiotyInwentarza");
             gracz.AppendChild(przedmiotyInwentarza);
