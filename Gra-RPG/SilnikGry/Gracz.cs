@@ -8,7 +8,7 @@ namespace SilnikGry
     public class Gracz : PostacGry
     {
         public int Zloto { get; set; }
-        public int PunktyDoswiadczenia { get; set; }
+        public int PunktyDoswiadczenia { get; private set; }
         public int Poziom
         {
             get
@@ -35,6 +35,12 @@ namespace SilnikGry
             gracz.Inwentarz.Add(new PrzedmiotInwentarza(Swiat.PrzedmiotPoID(Swiat.ID_PRZEDMIOTU_ZARDZEWIALY_MIECZ), 1));
             gracz.BiezacaLokalizacja = Swiat.LokalizacjaPoID(Swiat.ID_LOKALIZACJI_DOM);
             return gracz;
+        }
+
+        public void DodajPunktyDoswiadczenia(int punktyDoswiadczeniaDoDodania)
+        {
+            PunktyDoswiadczenia += punktyDoswiadczeniaDoDodania;
+            MaksymalnePunktyZdrowia = (Poziom * 10);
         }
 
         public static Gracz UtworzGraczaZStringuXML(string daneXMLGracza)

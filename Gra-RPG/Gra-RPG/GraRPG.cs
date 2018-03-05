@@ -94,7 +94,7 @@ namespace Gra_RPG
                             rbtWiadomosci.Text += nowaLokalizacja.DostepneZadanieTegoMiejsca.ZlotoDoZdobycia.ToString() + " złota" + Environment.NewLine;
                             rbtWiadomosci.Text += "1 " + nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotNagroda.Nazwa + Environment.NewLine + Environment.NewLine;
 
-                            _gracz.PunktyDoswiadczenia += nowaLokalizacja.DostepneZadanieTegoMiejsca.PunktyDoswiadczeniaDoZdobycia;
+                            _gracz.DodajPunktyDoswiadczenia(nowaLokalizacja.DostepneZadanieTegoMiejsca.PunktyDoswiadczeniaDoZdobycia);
                             _gracz.Zloto += nowaLokalizacja.DostepneZadanieTegoMiejsca.ZlotoDoZdobycia;
                             _gracz.DodajPrzedmiotDoInwentarza(nowaLokalizacja.DostepneZadanieTegoMiejsca.PrzedmiotNagroda);
                             _gracz.OznaczZadanieJakoUkonczone(nowaLokalizacja.DostepneZadanieTegoMiejsca);
@@ -275,7 +275,7 @@ namespace Gra_RPG
             {
                 rbtWiadomosci.Text += "Pokonałeś potwora " + _biezacyPotwor.Nazwa + "." + Environment.NewLine;
 
-                _gracz.PunktyDoswiadczenia += _biezacyPotwor.PunktyDoswiadczeniaDoZdobycia;
+                _gracz.DodajPunktyDoswiadczenia(_biezacyPotwor.PunktyDoswiadczeniaDoZdobycia);
                 rbtWiadomosci.Text += "Otrzymałeś " + _biezacyPotwor.PunktyDoswiadczeniaDoZdobycia.ToString() + " punktów doświadczenia." + Environment.NewLine;
                 
                 _gracz.Zloto += _biezacyPotwor.ZlotoDoZdobycia;
